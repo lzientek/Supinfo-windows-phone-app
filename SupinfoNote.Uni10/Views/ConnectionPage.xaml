@@ -5,16 +5,64 @@
     xmlns:local="using:SupinfoNote.Uni10"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewHelpers="using:SupinfoNote.Uni10.ViewHelpers"
     DataContext="{Binding Source={StaticResource Locator},Path=Connection}"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Margin="30" HorizontalAlignment="Center">
-            <TextBlock Text="Campus ID" />
-            <TextBox Text="{Binding CampusId}" />
-            <TextBlock Text="Password" />
-            <PasswordBox Password="{Binding Password}" />
-            <Button Content="Login" Command="{Binding ConnectCommand}" />
-        </StackPanel>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <viewHelpers:LoadingUserControl Grid.ColumnSpan="1000" Grid.RowSpan="1000" IsEnabled="{Binding IsConnecting}" Canvas.ZIndex="999999" />
+        <Grid Grid.Row="0">
+            <Image Source="../Assets/SupInfoLogo.png" HorizontalAlignment="Center" Margin="20,30" MaxWidth="300" />
+
+        </Grid>
+        <Grid Grid.Row="1" Margin="30"  >
+<Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="0,15,0,0"></Setter>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="BorderBrush" Value="{StaticResource SplitViewBackgroundBrush}"></Setter>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="PasswordBox">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="BorderBrush" Value="{StaticResource SplitViewBackgroundBrush}"></Setter>
+                    </Style.Setters>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5*" MaxWidth="310" MinWidth="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Uid="CampusIdLabel" Grid.Column="1"  />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CampusId}" />
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Uid="PasswordLabel" />
+            <PasswordBox Grid.Row="3" Grid.Column="1" Password="{Binding Password}" />
+            <Button  Grid.Row="4" Grid.Column="1" Content="Login" Command="{Binding ConnectCommand}" HorizontalAlignment="Center" Margin="0,30,0,0" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <TextBlock x:Uid="UnofficialTitle" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,20" Canvas.ZIndex="1" Foreground="#FF053869" />
+        </Grid>
     </Grid>
 </Page>

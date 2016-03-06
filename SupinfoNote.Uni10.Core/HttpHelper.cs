@@ -34,9 +34,14 @@ namespace SupinfoNote.Uni10.Core
             var result = await GetRequest(HttpRequestUrlLogin);
             if (result.IsSuccessStatusCode)
             {
-                var usr = new User(await result.Content.ReadAsStringAsync());
-                _token = usr.Token;
-                return usr;
+                string str = await result.Content.ReadAsStringAsync();
+                return await Task.Run(() =>
+                 {
+                     var usr = new User(str);
+                     _token = usr.Token;
+                     return usr;
+                 });
+
             }
             return null;
         }

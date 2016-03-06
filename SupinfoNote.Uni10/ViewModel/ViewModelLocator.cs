@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using SupinfoNote.Uni10.ViewModel.InnerVM;
 
 namespace SupinfoNote.Uni10.ViewModel
 {
@@ -32,10 +33,16 @@ namespace SupinfoNote.Uni10.ViewModel
 
             SimpleIoc.Default.Register<ConnectionViewModel>();
             SimpleIoc.Default.Register<MainPageViewModel>();
+            SimpleIoc.Default.Register<GradesViewModel>();
+            SimpleIoc.Default.Register<NewsViewModel>();
+            SimpleIoc.Default.Register<PlanningViewModel>();
         }
 
         public ConnectionViewModel Connection => ServiceLocator.Current.GetInstance<ConnectionViewModel>();
         public MainPageViewModel MainPage => ServiceLocator.Current.GetInstance<MainPageViewModel>();
+        public GradesViewModel Grades => ServiceLocator.Current.GetInstance<GradesViewModel>();
+        public PlanningViewModel Planning => ServiceLocator.Current.GetInstance<PlanningViewModel>();
+        public NewsViewModel News => ServiceLocator.Current.GetInstance<NewsViewModel>();
 
         public static void Cleanup()
         {

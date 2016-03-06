@@ -4,11 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SupinfoNote.Uni10"
     xmlns:viewModel="using:SupinfoNote.Uni10.ViewModel"
-    xmlns:common="using:SupinfoNote.Uni10.Common"
+    xmlns:converters="using:SupinfoNote.Uni10.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
-        <viewModel:ViewModelLocator x:Key="Locator" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/SplitViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:TypeEqualConverter x:Key="TypeEqualConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <viewModel:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
 

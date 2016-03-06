@@ -26,9 +26,10 @@ namespace SupinfoNote.Uni10
     sealed partial class App
     {
 
-        public new static App Current => (App) Application.Current;
+        public new static App Current => (App)Application.Current;
 
-        public ViewModelLocator Locator => (ViewModelLocator) Resources["Locator"];
+        public ViewModelLocator Locator => (ViewModelLocator)Resources["Locator"];
+        public Frame RootFrame => (Frame)Window.Current.Content;
 
         /// <summary>
         /// Initialise l'objet d'application de singleton.  Il s'agit de la première ligne du code créé

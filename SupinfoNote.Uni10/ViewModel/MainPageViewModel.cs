@@ -1,11 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SupinfoNote.Uni10.Core;
 using SupinfoNote.Uni10.Core.JsonModels;
 using SupinfoNote.Uni10.Core.JsonModels.Grade;
+using SupinfoNote.Uni10.Views.InnerViews;
 
 namespace SupinfoNote.Uni10.ViewModel
 {
@@ -18,11 +20,13 @@ namespace SupinfoNote.Uni10.ViewModel
 
 
         private ObservableCollection<Planning> _plannings;
+        private bool _isPaneOpen;
+        private Frame _contentFrame;
 
         public ObservableCollection<Planning> Plannings
         {
             get { return _plannings; }
-            set { _plannings = value;RaisePropertyChanged(); }
+            set { _plannings = value; RaisePropertyChanged(); }
         }
 
 
@@ -40,52 +44,59 @@ namespace SupinfoNote.Uni10.ViewModel
         public ObservableCollection<News> News
         {
             get { return _news; }
-            set { _news = value;RaisePropertyChanged(); }
+            set { _news = value; RaisePropertyChanged(); }
         }
+
+        public Frame ContentFrame
+        {
+            get { return _contentFrame ?? (_contentFrame = new Frame()); }
+            set { _contentFrame = value; RaisePropertyChanged(); RaisePropertyChanged(nameof(ActualPageType)); }
+        }
+
+        public Type ActualPageType => ContentFrame.SourcePageType;
 
         /// <summary>
         /// Initializes a new instance of the ConnectionViewModel class.
         /// </summary>
         public MainPageViewModel()
         {
-            Loading = new RelayCommand( OnLoading);
+            MenuCommand = new RelayCommand(OpenCloseMenu);
+            NavigateCommand = new RelayCommand<NavType>(NavigateTo);
+            ContentFrame.Navigate(typeof (NewsPage));
+            if (IsInDesignMode)
+            {
+                User = new User() {Firstname = "lucas", Lastname = "zien",BoosterId = 152565, SuccessPoints = 700.00,};
+            }
         }
 
 
-        private async void OnLoading()
+        #region Commands
+
+        public RelayCommand MenuCommand { get; set; }
+        public RelayCommand<NavType> NavigateCommand { get; set; }
+
+
+        private void OpenCloseMenu()
         {
-          var news =  await HttpHelper.Helper.GetNews();
-            if (news != null)
-            {
-                News = new ObservableCollection<News>(news);
-            }
-            else
-            {
-                await new MessageDialog("Error loading news").ShowAsync();
-            }
-
-            var grades = await HttpHelper.Helper.GetGrades();
-            if (grades != null)
-            {
-                Grades = new ObservableCollection<GradePromo>(grades);
-            }
-            else
-            {
-                await new MessageDialog("Error loading grades").ShowAsync();
-            }
-
-            var planning = await HttpHelper.Helper.GetPlanning(User.ClassId);
-            if (planning != null)
-            {
-                Plannings = new ObservableCollection<Planning>(planning);
-            }
-            else
-            {
-                await new MessageDialog("Error loading planning").ShowAsync();
-            }
+            IsPaneOpen = !IsPaneOpen;
         }
 
-        public RelayCommand Loading { get; set; }
+        public bool IsPaneOpen
+        {
+            get { return _isPaneOpen; }
+            set { _isPaneOpen = value; RaisePropertyChanged(); }
+        }
+
+        private void NavigateTo(NavType type)
+        {
+            IsPaneOpen = false;
+            ContentFrame.Navigate(type.Type);
+            RaisePropertyChanged(nameof(ActualPageType));
+        }
+
+        #endregion
+
+
 
     }
 }

@@ -8,10 +8,10 @@
     <Color x:Key="SystemListAccentLowColor">#FF004780</Color>
     <Color x:Key="SystemListAccentMediumColor">#FF005FAB</Color>
     <Color x:Key="SystemListAccentHighColor">#FF006BC0</Color>
-    <Color x:Key="SystemBackgroundColor">#FF444444</Color>
+    <Color x:Key="SystemBackgroundColor">#003869</Color>
 
     <SolidColorBrush x:Key="SplitViewBackgroundBrush" Color="{StaticResource SystemBackgroundColor}" />
-    <SolidColorBrush x:Key="SplitViewForegroundBrush" Color="WhiteSmoke" />
+    <SolidColorBrush x:Key="SplitViewForegroundBrush" Color="White" />
     <SolidColorBrush x:Key="NavButtonPressedBackgroundBrush" Color="{ThemeResource SystemListMediumColor}" />
     <SolidColorBrush x:Key="NavButtonHoverBackgroundBrush" Color="{ThemeResource SystemListLowColor}" />
     <SolidColorBrush x:Key="NavButtonCheckedBackgroundBrush" Color="{ThemeResource SystemListAccentLowColor}" />

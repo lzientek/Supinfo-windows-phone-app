@@ -5,10 +5,98 @@
     xmlns:local="using:SupinfoNote.Uni10"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:viewModel="using:SupinfoNote.Uni10.ViewModel"
+    xmlns:innerViews="using:SupinfoNote.Uni10.Views.InnerViews"
     DataContext="{Binding Source={StaticResource Locator},Path=MainPage}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <viewModel:NavType Type="innerViews:NewsPage" x:Key="NewsPageType" />
+        <viewModel:NavType Type="innerViews:GradesPage" x:Key="GradesPageType" />
+        <viewModel:NavType Type="innerViews:PlanningPage" x:Key="PlanningPageType" />
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-<TextBlock Text="MainPage" />
-    </Grid>
+    </Page.Resources>
+    <SplitView Name="SplitView" PanePlacement="Left" DisplayMode="CompactInline"
+               IsPaneOpen="{Binding IsPaneOpen}"  >
+        <SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="RadioButton" BasedOn="{StaticResource SplitViewRadioButtonStyle}" />
+                </Grid.Resources>
+
+                <StackPanel>
+                    <!-- hamburger -->
+                    <RadioButton Checked="DontCheck" Command="{Binding MenuCommand}" >
+                        <RadioButton.Tag>
+                            <TextBlock Style="{StaticResource SplitViewTextBlockStyle}" Text="" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
+                        </RadioButton.Tag>
+                        <RadioButton.Content>
+                            <TextBlock x:Uid="ApplicationTitle" Style="{x:Null}" FontSize="19" Margin="0,-4,0,0" VerticalAlignment="Center" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <RadioButton IsChecked="{Binding ActualPageType,Converter={StaticResource TypeEqualConverter},ConverterParameter={StaticResource NewsPageType}}" Command="{Binding NavigateCommand}" CommandParameter="{StaticResource NewsPageType}" >
+
+                        <RadioButton.Tag>
+                            <TextBlock Style="{StaticResource SplitViewTextBlockStyle}" Text="" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
+                        </RadioButton.Tag>
+                        <RadioButton.Content>
+                            <TextBlock x:Uid="HomeTitle" Style="{x:Null}" FontSize="19" Margin="0,-4,0,0" VerticalAlignment="Center" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton IsChecked="{Binding ActualPageType,Converter={StaticResource TypeEqualConverter},ConverterParameter={StaticResource GradesPageType}}" Command="{Binding NavigateCommand}" CommandParameter="{StaticResource GradesPageType}" >
+                        <RadioButton.Tag>
+                            <TextBlock Style="{StaticResource SplitViewTextBlockStyle}" Text="" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
+                        </RadioButton.Tag>
+                        <RadioButton.Content>
+                            <TextBlock x:Uid="GradesTitle" Style="{x:Null}" FontSize="19" Margin="0,-4,0,0" VerticalAlignment="Center" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton IsChecked="{Binding ActualPageType,Converter={StaticResource TypeEqualConverter},ConverterParameter={StaticResource PlanningPageType}}" Command="{Binding NavigateCommand}" CommandParameter="{StaticResource PlanningPageType}" >
+                        <RadioButton.Tag>
+                            <TextBlock Style="{StaticResource SplitViewTextBlockStyle}" Text="" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
+                        </RadioButton.Tag>
+                        <RadioButton.Content>
+                            <TextBlock x:Uid="PlanningTitle" Style="{x:Null}" FontSize="19" Margin="0,-4,0,0" VerticalAlignment="Center" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                </StackPanel>
+
+                <!--user infos-->
+                <Grid Grid.Row="2" Visibility="{Binding IsPaneOpen,Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,0,0,9">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding User.Picture}" MaxHeight="65" Margin="5" />
+                    <StackPanel Grid.Column="1" Margin="0,5,0,0">
+                        <TextBlock Foreground="White" FontSize="18.667" >
+                        <Run Text="{Binding User.Firstname}" />
+                        <Run Text=" " />
+                        <Run Text="{Binding User.Lastname}" />
+                        </TextBlock>
+                        <TextBlock Foreground="White">
+                        <Run Text="{Binding User.BoosterId}" ></Run>
+                        </TextBlock>
+                        <TextBlock Foreground="White" >
+                        <Run Text="Success Points :" />
+                        <Run  Text="{Binding User.SuccessPoints}"/>
+                        <Run Text=" | Ects:" />
+                        <Run Text="{Binding User.Ects}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </SplitView.Pane>
+
+    </SplitView>
 </Page>
+
