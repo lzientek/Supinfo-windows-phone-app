@@ -56,9 +56,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock x:Uid="CampusIdLabel" Grid.Column="1"  />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CampusId}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CampusId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Row="2" Grid.Column="1" x:Uid="PasswordLabel" />
-            <PasswordBox Grid.Row="3" Grid.Column="1" Password="{Binding Password}" />
+            <PasswordBox Grid.Row="3" Grid.Column="1" Password="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <Button  Grid.Row="4" Grid.Column="1" Content="Login" Command="{Binding ConnectCommand}" HorizontalAlignment="Center" Margin="0,30,0,0" />
         </Grid>
         <Grid Grid.Row="2">

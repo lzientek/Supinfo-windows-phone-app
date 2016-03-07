@@ -5,10 +5,13 @@
     xmlns:local="using:SupinfoNote.Uni10.Views.InnerViews"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewHelpers="using:SupinfoNote.Uni10.ViewHelpers"
     DataContext="{Binding Source={StaticResource Locator},Path=Grades}"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <viewHelpers:LoadingUserControl Canvas.ZIndex="999999" IsEnabled="{Binding IsLoading}" />
+
         <ScrollViewer>
             <ItemsControl ItemsSource="{Binding Grades}">
                 <ItemsControl.ItemTemplate>

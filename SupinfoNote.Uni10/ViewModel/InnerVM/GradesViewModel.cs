@@ -13,12 +13,19 @@ namespace SupinfoNote.Uni10.ViewModel.InnerVM
     public class GradesViewModel : ViewModelBase
     {
         private ObservableCollection<GradePromo> _grades;
+        private bool _isLoading;
 
-        
+
         public ObservableCollection<GradePromo> Grades
         {
             get { return _grades; }
             set { _grades = value; RaisePropertyChanged(); }
+        }
+
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { _isLoading = value; RaisePropertyChanged(); }
         }
 
         /// <summary>
@@ -32,6 +39,7 @@ namespace SupinfoNote.Uni10.ViewModel.InnerVM
 
         private async void OnLoading()
         {
+            IsLoading = true;
             var gradePromos = await HttpHelper.Helper.GetGrades();
             if (gradePromos != null)
             {
@@ -41,6 +49,8 @@ namespace SupinfoNote.Uni10.ViewModel.InnerVM
             {
                 await new MessageDialog("Error loading grades").ShowAsync();
             }
+            IsLoading = false;
+
         }
 
     }

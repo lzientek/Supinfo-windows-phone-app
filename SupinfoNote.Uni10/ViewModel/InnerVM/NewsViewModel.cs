@@ -12,12 +12,19 @@ namespace SupinfoNote.Uni10.ViewModel.InnerVM
     public class NewsViewModel : ViewModelBase
     {
         private ObservableCollection<News> _news;
+        private bool _isLoading;
 
-        
+
         public ObservableCollection<News> News
         {
             get { return _news; }
             set { _news = value; RaisePropertyChanged(); }
+        }
+
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { _isLoading = value;RaisePropertyChanged(); }
         }
 
         /// <summary>
@@ -31,6 +38,7 @@ namespace SupinfoNote.Uni10.ViewModel.InnerVM
 
         private async void OnLoading()
         {
+            IsLoading = true;
             var news = await HttpHelper.Helper.GetNews();
             if (news != null)
             {
@@ -40,6 +48,7 @@ namespace SupinfoNote.Uni10.ViewModel.InnerVM
             {
                 await new MessageDialog("Error loading news").ShowAsync();
             }
+            IsLoading = false;
         }
 
     }
