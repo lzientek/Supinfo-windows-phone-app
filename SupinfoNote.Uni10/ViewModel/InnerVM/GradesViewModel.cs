@@ -2,9 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Popups;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using SupinfoNote.Uni10.Core;
-using SupinfoNote.Uni10.Core.JsonModels;
 using SupinfoNote.Uni10.Core.JsonModels.Grade;
 
 namespace SupinfoNote.Uni10.ViewModel.InnerVM

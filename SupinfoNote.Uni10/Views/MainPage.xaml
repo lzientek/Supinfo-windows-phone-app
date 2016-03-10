@@ -5,8 +5,6 @@
     xmlns:local="using:SupinfoNote.Uni10"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:viewModel="using:SupinfoNote.Uni10.ViewModel"
     xmlns:innerViews="using:SupinfoNote.Uni10.Views.InnerViews"
     DataContext="{Binding Source={StaticResource Locator},Path=MainPage}"

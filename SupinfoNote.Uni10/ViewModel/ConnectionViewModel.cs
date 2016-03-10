@@ -35,7 +35,6 @@ namespace SupinfoNote.Uni10.ViewModel
                 usr.ConvertStringToImage();
                 //go to next page
                 App.Current.RootFrame.Navigate(typeof(MainPage));
-
             }
             else
             {

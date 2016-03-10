@@ -11,8 +11,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <viewHelpers:LoadingUserControl Canvas.ZIndex="999999" IsEnabled="{Binding IsLoading}" />
-        <ListBox ItemsSource="{Binding News}">
-            <ListBox.ItemTemplate>
+        <ListView ItemsSource="{Binding News}" >
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <StackPanel>
@@ -24,8 +24,8 @@
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
 </Page>
